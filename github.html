@@ -1,0 +1,113 @@
+<div class="card">
+  <h2 style="font-family: 'Poppins', sans-serif; font-weight: 700; color: #0f172a; margin-bottom: 20px;">
+    GitHub Info
+  </h2>
+  
+  <div id="loader" style="color: #1a73e8; font-family: 'Inter', sans-serif; font-weight: 500; margin: 30px 0;">
+    <div class="spinner"></div> 
+    <p>Menarik data dari GitHub...</p>
+  </div>
+
+  <div id="github-content" style="display: none; max-width: 450px; margin: 0 auto; text-align: center;">
+    
+    <img id="gh-avatar" src="" alt="Avatar" style="width: 120px !important; height: 120px !important; border-radius: 50% !important; border: 4px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 15px; object-fit: cover;">
+    
+    <h3 id="gh-name" style="font-family: 'Poppins', sans-serif; color: #1e293b; margin-bottom: 5px;"></h3>
+    <p id="gh-bio" style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #64748b; margin-bottom: 20px;"></p>
+    
+    <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 25px; font-family: 'Inter', sans-serif; font-size: 0.9rem; background: #f8fafc; padding: 15px; border-radius: 12px;">
+      <div style="text-align: center;">
+        <span style="display: block; font-weight: 700; color: #1a73e8;" id="gh-repo-count">0</span>
+        <span style="color: #94a3b8; font-size: 0.8rem;">Repositories</span>
+      </div>
+      <div style="text-align: center;">
+        <span style="display: block; font-weight: 700; color: #1a73e8;" id="gh-followers">0</span>
+        <span style="color: #94a3b8; font-size: 0.8rem;">Followers</span>
+      </div>
+    </div>
+
+    <h4 style="text-align: left; font-family: 'Poppins', sans-serif; font-size: 1rem; color: #0f172a; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 8px;">
+      Latest Projects:
+    </h4>
+    <ul id="gh-repo-list" style="list-style: none; padding: 0; margin-bottom: 10px;">
+      </ul>
+  </div>
+
+  <div id="gh-error" style="display: none; color: #ff4757; font-family: 'Inter', sans-serif; font-weight: 500; margin-top: 20px;">
+    ❌ Gagal mengambil data. Pastikan koneksi internet stabil atau username benar.
+  </div>
+</div>
+
+<style>
+  /* Animasi Spinner Loading */
+  .spinner {
+    border: 4px solid rgba(26, 115, 232, 0.1);
+    border-top: 4px solid #1a73e8;
+    border-radius: 50%;
+    width: 35px; height: 35px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px auto;
+  }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+  /* Style untuk List Repository */
+  .repo-item {
+    display: block;
+    text-align: left;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    color: #1a73e8;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+  .repo-item:hover {
+    background: #f1f5f9;
+    border-color: #1a73e8;
+    transform: translateX(5px);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+$(document).ready(function() {
+  // GANTI 'desti-dev' dengan username GitHub kamu yang asli!
+  const username = "dest1m"; 
+
+  $.ajax({
+    url: `https://api.github.com/users/${username}`,
+    method: "GET",
+    success: function(user) {
+      $("#gh-avatar").attr("src", user.avatar_url);
+      $("#gh-name").text(user.name || user.login);
+      $("#gh-bio").text(user.bio || "Web Developer and Security Enthusiast");
+      $("#gh-repo-count").text(user.public_repos);
+      $("#gh-followers").text(user.followers);
+
+      $.get(user.repos_url + "?sort=updated&per_page=5", function(repos) {
+        let repoHtml = "";
+        repos.forEach(repo => {
+          repoHtml += `<li><a href="${repo.html_url}" target="_blank" class="repo-item">📁 ${repo.name}</a></li>`;
+        });
+        $("#gh-repo-list").html(repoHtml);
+        
+        $("#loader").hide();
+        $("#github-content").fadeIn().css("animation", "fadeIn 0.8s ease");
+      });
+    },
+    error: function() {
+      $("#loader").hide();
+      $("#gh-error").fadeIn();
+    }
+  });
+});
+</script>

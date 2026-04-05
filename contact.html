@@ -1,0 +1,111 @@
+<div class="card">
+  <h2 style="font-family: 'Poppins', sans-serif; font-weight: 700; color: #0f172a; margin-bottom: 25px;">
+    Contact Me
+  </h2>
+  
+  <div id="formWrapper">
+    <form id="contactForm" style="display: flex; flex-direction: column; gap: 15px; max-width: 450px; margin: 0 auto;">
+      <input type="text" id="nama" placeholder="Nama" class="input-style" required>
+      <input type="email" id="email" placeholder="Email" class="input-style" required>
+      <textarea id="pesan" placeholder="Pesan" class="input-style" style="height: 100px; resize: none;" required></textarea>
+      
+      <button type="submit" id="btnKirim">Kirim Pesan</button>
+    </form>
+  </div>
+  
+  <p id="msg" style="margin-top: 15px; font-size: 0.9rem; font-weight: 600; font-family: 'Inter', sans-serif; opacity: 0;"></p>
+
+  <div id="socialContact" style="display: none; margin-top: 10px;">
+    <hr style="margin-bottom: 20px; border: none; border-top: 1px solid #eee;">
+    <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.1rem; margin-bottom: 15px; color: #0f172a;">Hubungi Aku 💞</h3>
+    
+    <ul style="list-style: none; padding: 0; font-size: 0.95rem; line-height: 2.2; font-family: 'Inter', sans-serif; text-align: center;">
+      <li>📷 IG: <a href="https://instagram.com/desti_dev" target="_blank" style="color: #1a73e8; text-decoration: none; font-weight: 500;">@desti_dev</a></li>
+      <li>💬 WA: <a href="https://wa.me/62812345678" target="_blank" style="color: #1a73e8; text-decoration: none; font-weight: 500;">Chat WhatsApp</a></li>
+      <li>📧 Email: <a href="mailto:desti@gmail.com" style="color: #1a73e8; text-decoration: none; font-weight: 500;">desti@gmail.com</a></li>
+    </ul>
+    
+    <button onclick="location.reload()" style="background: none; border: none; color: #64748b; font-size: 0.8rem; cursor: pointer; margin-top: 15px; text-decoration: underline;">Kirim pesan lain</button>
+  </div>
+</div>
+
+<style>
+  .input-style {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: 0.3s;
+    background: #ffffff;
+  }
+
+  .input-style:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+  }
+
+  #btnKirim {
+    background: #1e293b;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 5px;
+  }
+
+  #btnKirim:hover {
+    background: #0f172a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  /* Animasi muncul halus untuk teks */
+  .fade-in-up {
+    animation: fadeInUp 0.6s forwards;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+$("#contactForm").off("submit").on("submit", function(e){
+  e.preventDefault();
+  let nama = $("#nama").val();
+  let email = $("#email").val();
+  let pesan = $("#pesan").val();
+
+  if(nama == "" || email == "" || pesan.length < 5){
+    $("#msg").text("❌ Mohon isi data dengan benar.").css({"color":"#ff4757", "opacity":"1"});
+  } else {
+    // Tombol loading state
+    $("#btnKirim").text("Mengirim...").prop("disabled", true);
+
+    // Efek smooth: Form menghilang dulu
+    $("#formWrapper").animate({ opacity: 0, marginTop: "-10px" }, 400, function(){
+      $(this).hide(); // Sembunyikan form sepenuhnya
+      
+      // Munculkan pesan sukses dan info kontak
+      $("#msg").text("✅ Pesan terkirim! Kamu bisa hubungi saya di sini:").css("color","#2ed573").addClass("fade-in-up");
+      $("#socialContact").fadeIn(600).addClass("fade-in-up");
+    });
+
+    // Simpan ke local storage
+    localStorage.setItem("nama", nama);
+    localStorage.setItem("email", email);
+  }
+});
+
+$(document).ready(function(){
+  if(localStorage.getItem("nama")) $("#nama").val(localStorage.getItem("nama"));
+  if(localStorage.getItem("email")) $("#email").val(localStorage.getItem("email"));
+});
+</script>
