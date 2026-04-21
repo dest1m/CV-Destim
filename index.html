@@ -1,184 +1,70 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desti | Portfolio SPA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <style>
-        :root {
-            --primary: #6366f1;
-            --secondary: #4f46e5;
-            --bg: #f8fafc;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-
-        /* Navbar Modern */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 8%;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
-
-        .logo {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: var(--text-main);
-        }
-
-        .logo span { color: var(--primary); }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 1.2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: 0.3s ease;
-        }
-
-        .nav-links a.active, .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Khusus tombol contact agar menonjol */
-        .contact-btn {
-            background: var(--primary);
-            color: white !important;
-            padding: 8px 18px;
-            border-radius: 8px;
-        }
-
-        .contact-btn:hover { background: var(--secondary); }
-
-        /* Main Wrapper */
-        main {
-            margin-top: 100px;
-            padding: 0 8%;
-            min-height: 80vh;
-        }
-
-        #content { opacity: 1; }
-
-        /* Hamburger (Mobile) */
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            font-size: 1.8rem;
-        }
-
-        @media (max-width: 992px) {
-            .hamburger { display: block; }
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: white;
-                padding: 2rem;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
-            }
-            .nav-links.open { display: flex; }
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desti | Portfolio SPA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
 <nav class="navbar">
-    <a href="#" class="logo">Desti<span>.Dev</span></a>
-    <ul class="nav-links">
-        <li><a href="#" class="menu active" data-page="home.html">Home</a></li>
-        <li><a href="#" class="menu" data-page="about.html">About</a></li>
-        <li><a href="#" class="menu" data-page="skills.html">Skills</a></li>
-        <li><a href="#" class="menu" data-page="experience.html">Experience</a></li>
-        <li><a href="#" class="menu" data-page="education.html">Education</a></li>
-        <li><a href="#" class="menu" data-page="portfolio.html">Portfolio</a></li>
-        <li><a href="#" class="menu" data-page="certificate.html">Certificate</a></li>
-        <li><a href="#" class="menu" data-page="github.html">Github</a></li>
-        <li><a href="#" class="menu contact-btn" data-page="contact.html">Contact</a></li>
-    </ul>
-    <div class="hamburger">&#9776;</div>
+    <a href="#" class="logo">Desti<span>.Dev</span></a>
+    <ul class="nav-links">
+        <li><a href="#" class="menu active" data-page="home.html">Home</a></li>
+        <li><a href="#" class="menu" data-page="about.html">About</a></li>
+        <li><a href="#" class="menu" data-page="skills.html">Skills</a></li>
+        <li><a href="#" class="menu" data-page="experience.html">Experience</a></li>
+        <li><a href="#" class="menu" data-page="education.html">Education</a></li>
+        <li><a href="#" class="menu" data-page="portfolio.html">Portfolio</a></li>
+        <li><a href="#" class="menu" data-page="certificate.html">Certificate</a></li>
+        <li><a href="#" class="menu" data-page="github.html">Github</a></li>
+        <li><a href="#" class="menu contact-btn" data-page="contact.html">Contact</a></li>
+    </ul>
+    <div class="hamburger">&#9776;</div>
 </nav>
 
 <main id="content-wrapper">
-    <div id="content"></div>
+    <div id="content"></div>
 </main>
 
 <script>
 $(document).ready(function(){
-    // Fungsi Load Halaman
-    function loadPage(page){
-        $("#content").animate({ opacity: 0 }, 200, function(){
-            $.ajax({
-                url: page,
-                cache: false,
-                success: function(response) {
-                    $("#content").html(response).animate({ opacity: 1 }, 300);
-                    $(window).scrollTop(0);
-                    
-                    // FIX BUG GITHUB: Jalankan fungsi GitHub jika halaman yang dimuat adalah github.html
-                    if(page === "github.html") {
-                        if (typeof fetchGitHubData === "function") {
-                            fetchGitHubData();
-                        }
-                    }
-                },
-                error: function() {
-                    $("#content").html("<div style='text-align:center; padding:50px;'><h2>404</h2><p>Halaman tidak ditemukan.</p></div>").animate({ opacity: 1 }, 300);
-                }
-            });
-        });
-    }
+    function loadPage(page){
+        $("#content").animate({ opacity: 0 }, 200, function(){
+            $.ajax({
+                url: page,
+                cache: false,
+                success: function(response) {
+                    $("#content").html(response).animate({ opacity: 1 }, 300);
+                    $(window).scrollTop(0);
+                }
+            });
+        });
+    }
 
-    // Awal load
-    loadPage("home.html");
+    // Muat Home saat pertama kali
+    loadPage("home.html");
 
-    // Navigasi
-    $(document).on("click", ".menu", function(e){
-        e.preventDefault();
-        $(".menu").removeClass("active");
-        $(this).addClass("active");
-        
-        let page = $(this).attr("data-page");
-        loadPage(page);
+    // Logika Klik Menu
+    $(document).on("click", ".menu", function(e){
+        e.preventDefault();
+        
+        // HAPUS kelas active dari SEMUA menu (termasuk .contact-btn)
+        $(".nav-links li a").removeClass("active");
+        
+        // TAMBAH active hanya pada yang diklik
+        $(this).addClass("active");
+        
+        let page = $(this).attr("data-page");
+        loadPage(page);
 
-        $(".nav-links").removeClass("open");
-    });
+        $(".nav-links").removeClass("open");
+    });
 
-    // Mobile Hamburger
-    $(".hamburger").click(function(){ 
-        $(".nav-links").toggleClass("open"); 
-    });
+    $(".hamburger").click(function(){ $(".nav-links").toggleClass("open"); });
 });
 </script>
 </body>
