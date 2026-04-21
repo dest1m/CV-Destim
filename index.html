@@ -3,47 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desti | Portfolio Dev</title>
+    <title>Desti | Portfolio SPA</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
     <style>
         :root {
-            --primary: #6366f1;
-            --secondary: #4f46e5;
-            --dark: #0f172a;
+            --primary: #6366f1; /* Warna Indigo Modern */
+            --dark: #1e293b;
             --light: #f8fafc;
             --gray: #64748b;
-            --transition: all 0.3s ease;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--light);
             color: var(--dark);
-            line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* NAVBAR REVISED */
+        /* Navbar Tetap Sesuai Struktur Awal */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 8%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
+            padding: 1rem 5%;
+            background: white;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .logo {
@@ -59,69 +49,52 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 1.5rem;
-            align-items: center;
+            gap: 15px;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--gray);
             font-weight: 500;
-            font-size: 0.95rem;
-            transition: var(--transition);
+            font-size: 0.9rem;
+            transition: 0.3s;
         }
 
         .nav-links a:hover, .nav-links a.active {
             color: var(--primary);
         }
 
-        /* Contact Button Style */
+        /* Tombol Kontak Sesuai Style Awal */
         .contact-btn {
             background: var(--primary);
             color: white !important;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
+            padding: 5px 15px;
+            border-radius: 5px;
         }
 
-        .contact-btn:hover {
-            background: var(--secondary);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
-
-        /* MAIN CONTENT */
+        /* Main Content */
         main {
-            margin-top: 100px;
-            min-height: calc(100vh - 100px);
-            padding: 2rem 8%;
+            margin-top: 80px;
+            padding: 2rem 5%;
         }
 
-        #content {
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
+        /* Mobile Menu */
+        .hamburger { display: none; cursor: pointer; font-size: 1.5rem; }
 
-        /* MOBILE MENU */
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            font-size: 1.8rem;
-        }
-
-        @media (max-width: 992px) {
+        @media (max-width: 768px) {
             .hamburger { display: block; }
             .nav-links {
-                position: fixed;
-                top: 80px;
-                right: -100%;
+                display: none;
                 flex-direction: column;
-                background: white;
+                position: absolute;
+                top: 60px;
+                left: 0;
                 width: 100%;
-                padding: 2rem;
-                text-align: center;
-                transition: var(--transition);
-                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                background: white;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
             }
-            .nav-links.open { right: 0; }
+            .nav-links.open { display: flex; }
         }
     </style>
 </head>
@@ -134,69 +107,55 @@
         <li><a href="#" class="menu" data-page="about.html">About</a></li>
         <li><a href="#" class="menu" data-page="skills.html">Skills</a></li>
         <li><a href="#" class="menu" data-page="experience.html">Experience</a></li>
+        <li><a href="#" class="menu" data-page="education.html">Education</a></li>
         <li><a href="#" class="menu" data-page="portfolio.html">Portfolio</a></li>
+        <li><a href="#" class="menu" data-page="certificate.html">Certificate</a></li>
+        <li><a href="#" class="menu" data-page="github.html">Github</a></li>
         <li><a href="#" class="menu contact-btn" data-page="contact.html">Contact</a></li>
     </ul>
     <div class="hamburger">&#9776;</div>
 </nav>
 
 <main id="content-wrapper">
-    <div id="content">
-        </div>
+    <div id="content"></div>
 </main>
 
 <script>
 $(document).ready(function(){
-    // Fungsi memuat halaman dengan Error Handling agar tidak bug/blank
     function loadPage(page){
-        $("#content").css("opacity", "0");
-        
-        setTimeout(function() {
+        $("#content").animate({ opacity: 0 }, 200, function(){
             $.ajax({
                 url: page,
                 cache: false,
                 success: function(response) {
-                    $("#content").html(response).css("opacity", "1");
+                    $("#content").html(response).animate({ opacity: 1 }, 300);
                     $(window).scrollTop(0);
                 },
                 error: function() {
-                    $("#content").html(`
-                        <div style="text-align:center; padding:50px;">
-                            <h2>Halaman Tidak Ditemukan</h2>
-                            <p>Pastikan file <b>${page}</b> sudah kamu upload ke GitHub.</p>
-                            <button onclick="location.reload()" style="margin-top:20px; padding:10px 20px; border-radius:5px; cursor:pointer;">Muat Ulang</button>
-                        </div>
-                    `).css("opacity", "1");
+                    $("#content").html("<h2>Halaman tidak ditemukan.</h2>").animate({ opacity: 1 }, 300);
                 }
             });
-        }, 300);
+        });
     }
 
     // Load Home pertama kali
     loadPage("home.html");
 
-    // Navigasi Klik
+    // Logika Klik Menu (Tetap simpel agar tidak bug)
     $(document).on("click", ".menu", function(e){
         e.preventDefault();
         
-        // Update class active
-        $(".menu").removeClass("active");
+        $(".nav-links li a").removeClass("active");
         $(this).addClass("active");
         
-        // Ambil nama file dan load
-        let targetPage = $(this).attr("data-page");
-        loadPage(targetPage);
+        let page = $(this).attr("data-page");
+        loadPage(page);
 
-        // Tutup menu mobile jika terbuka
         $(".nav-links").removeClass("open");
     });
 
-    // Toggle Hamburger
-    $(".hamburger").click(function(){
-        $(".nav-links").toggleClass("open");
-    });
+    $(".hamburger").click(function(){ $(".nav-links").toggleClass("open"); });
 });
 </script>
-
 </body>
 </html>
