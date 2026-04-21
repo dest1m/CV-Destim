@@ -3,63 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desti | Creative Developer</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-    
+    <title>Desti | Portfolio SPA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <style>
         :root {
-            --primary: #6366f1; /* Indigo */
-            --accent: #f43f5e;  /* Rose */
-            --dark-bg: #0f172a; /* Slate 900 */
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #6366f1;
+            --secondary: #4f46e5;
+            --bg: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--dark-bg);
+            background-color: var(--bg);
             color: var(--text-main);
             line-height: 1.6;
-            overflow-x: hidden;
-            /* Background efek radial biar nggak flat */
-            background-image: 
-                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(244, 63, 94, 0.1) 0%, transparent 50%);
         }
 
-        /* --- NAVIGATION --- */
+        /* Navbar Modern */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 10%;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(20px);
+            padding: 1rem 8%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
             text-decoration: none;
             color: var(--text-main);
-            letter-spacing: -1px;
         }
 
         .logo span { color: var(--primary); }
@@ -67,81 +53,69 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.2rem;
             align-items: center;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-dim);
+            color: var(--text-muted);
             font-weight: 500;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition);
+            font-size: 0.9rem;
+            transition: 0.3s ease;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a.active, .nav-links a:hover {
             color: var(--primary);
         }
 
+        /* Khusus tombol contact agar menonjol */
         .contact-btn {
-            border: 1px solid var(--primary);
-            padding: 0.6rem 1.4rem !important;
-            border-radius: 100px;
-            color: var(--primary) !important;
-        }
-
-        .contact-btn:hover {
             background: var(--primary);
             color: white !important;
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+            padding: 8px 18px;
+            border-radius: 8px;
         }
 
-        /* --- MAIN AREA --- */
+        .contact-btn:hover { background: var(--secondary); }
+
+        /* Main Wrapper */
         main {
-            margin-top: 120px;
-            padding: 0 10%;
+            margin-top: 100px;
+            padding: 0 8%;
             min-height: 80vh;
         }
 
-        #content {
-            animation: slideUp 0.6s ease forwards;
-        }
+        #content { opacity: 1; }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- MOBILE MENU --- */
+        /* Hamburger (Mobile) */
         .hamburger {
             display: none;
             cursor: pointer;
-            color: var(--text-main);
+            font-size: 1.8rem;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 992px) {
+            .hamburger { display: block; }
             .nav-links {
                 display: none;
-                position: fixed;
-                top: 80px;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
                 left: 0;
                 width: 100%;
-                background: var(--dark-bg);
-                flex-direction: column;
-                padding: 3rem;
-                height: 100vh;
+                background: white;
+                padding: 2rem;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
             }
             .nav-links.open { display: flex; }
-            .hamburger { display: block; }
         }
     </style>
 </head>
 <body>
 
 <nav class="navbar">
-    <a href="#" class="logo">DESTI<span>.</span></a>
+    <a href="#" class="logo">Desti<span>.Dev</span></a>
     <ul class="nav-links">
         <li><a href="#" class="menu active" data-page="home.html">Home</a></li>
         <li><a href="#" class="menu" data-page="about.html">About</a></li>
@@ -153,59 +127,57 @@
         <li><a href="#" class="menu" data-page="github.html">Github</a></li>
         <li><a href="#" class="menu contact-btn" data-page="contact.html">Contact</a></li>
     </ul>
-    <div class="hamburger">
-        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-    </div>
+    <div class="hamburger">&#9776;</div>
 </nav>
 
-<main>
+<main id="content-wrapper">
     <div id="content"></div>
 </main>
 
 <script>
 $(document).ready(function(){
+    // Fungsi Load Halaman
     function loadPage(page){
-        // Animasi keluar
-        $("#content").css({ "opacity": "0", "transform": "translateY(10px)" });
-        
-        setTimeout(function() {
+        $("#content").animate({ opacity: 0 }, 200, function(){
             $.ajax({
                 url: page,
                 cache: false,
-                success: function(html) {
-                    $("#content").html(html).css({ "opacity": "1", "transform": "translateY(0)" });
+                success: function(response) {
+                    $("#content").html(response).animate({ opacity: 1 }, 300);
                     $(window).scrollTop(0);
                     
-                    // Trigger khusus Github jika file github.html dimuat
-                    if(page.includes("github")) {
-                        if(typeof fetchGitHubData === "function") fetchGitHubData();
+                    // FIX BUG GITHUB: Jalankan fungsi GitHub jika halaman yang dimuat adalah github.html
+                    if(page === "github.html") {
+                        if (typeof fetchGitHubData === "function") {
+                            fetchGitHubData();
+                        }
                     }
                 },
                 error: function() {
-                    $("#content").html("<h2 style='text-align:center;'>404: Page not found.</h2>").css("opacity", "1");
+                    $("#content").html("<div style='text-align:center; padding:50px;'><h2>404</h2><p>Halaman tidak ditemukan.</p></div>").animate({ opacity: 1 }, 300);
                 }
             });
-        }, 300);
+        });
     }
 
-    // Default load
+    // Awal load
     loadPage("home.html");
 
-    // Nav Click
+    // Navigasi
     $(document).on("click", ".menu", function(e){
         e.preventDefault();
-        const page = $(this).attr("data-page");
-        
         $(".menu").removeClass("active");
         $(this).addClass("active");
         
+        let page = $(this).attr("data-page");
         loadPage(page);
+
         $(".nav-links").removeClass("open");
     });
 
     // Mobile Hamburger
-    $(".hamburger").click(function(){
-        $(".nav-links").toggleClass("open");
+    $(".hamburger").click(function(){ 
+        $(".nav-links").toggleClass("open"); 
     });
 });
 </script>
