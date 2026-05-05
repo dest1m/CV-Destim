@@ -1,10 +1,13 @@
-// sw.js - Basic Service Worker
-const CACHE_NAME = 'desti-portfolio-v1';
-
+// sw.js - Service Worker untuk PWA
 self.addEventListener('install', (event) => {
   console.log('Service Worker: Installed');
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  console.log('Service Worker: Activated');
 });
 
 self.addEventListener('fetch', (event) => {
-  // Biarkan kosong untuk PWA Basic agar instalasi aktif
+  // Kosongkan untuk PWA Basic
 });
