@@ -40,16 +40,16 @@
 
 <script>
 $(document).ready(function(){
-    // 1. Registrasi Service Worker
+    // Registrasi Service Worker
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('PWA Active!'))
-                .catch(err => console.log('PWA Failed!', err));
+                .then(reg => console.log('PWA Registered!'))
+                .catch(err => console.log('PWA Registration Failed!', err));
         });
     }
 
-    // 2. Logika SPA (Load Page)
+    // Fungsi Load Page SPA
     function loadPage(page){
         $("#content").animate({ opacity: 0 }, 200, function(){
             $.ajax({
@@ -69,7 +69,6 @@ $(document).ready(function(){
         e.preventDefault();
         $(".nav-links li a").removeClass("active");
         $(this).addClass("active");
-        
         let page = $(this).attr("data-page");
         loadPage(page);
         $(".nav-links").removeClass("open");
