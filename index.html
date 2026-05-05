@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desti | Portfolio SPA</title>
     
-    <!-- PWA Meta Tags -->
+    <!-- PWA Settings -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -40,16 +40,16 @@
 
 <script>
 $(document).ready(function(){
-    // 1. Registrasi Service Worker untuk PWA
+    // 1. Registrasi Service Worker
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('SW Registered!', reg))
-                .catch(err => console.log('SW Register Failed!', err));
+                .then(reg => console.log('PWA Active!'))
+                .catch(err => console.log('PWA Failed!', err));
         });
     }
 
-    // 2. Fungsi Load Page SPA
+    // 2. Logika SPA (Load Page)
     function loadPage(page){
         $("#content").animate({ opacity: 0 }, 200, function(){
             $.ajax({
@@ -63,22 +63,15 @@ $(document).ready(function(){
         });
     }
 
-    // Muat Home saat pertama kali
     loadPage("home.html");
 
-    // Logika Klik Menu
     $(document).on("click", ".menu", function(e){
         e.preventDefault();
-        
-        // HAPUS kelas active dari SEMUA menu
         $(".nav-links li a").removeClass("active");
-        
-        // TAMBAH active hanya pada yang diklik
         $(this).addClass("active");
         
         let page = $(this).attr("data-page");
         loadPage(page);
-
         $(".nav-links").removeClass("open");
     });
 
