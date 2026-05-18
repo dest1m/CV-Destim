@@ -128,32 +128,33 @@
         font-size: 0.85rem;
     }
 
-    /* VISUAL / IMAGE STYLING */
+    /* VISUAL / IMAGE STYLING (DIUBAH AGAR TIDAK TERPOTONG) */
     .hero-visual {
-        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .image-stack {
         position: relative;
-        width: 320px;
-        height: 400px;
-        margin: 0 auto;
+        width: 100%;
+        max-width: 320px; /* Batas lebar maksimal frame foto */
     }
 
     .profile-frame {
         position: relative;
         z-index: 2;
         width: 100%;
-        height: 100%;
         border-radius: 24px;
         overflow: hidden;
         border: 1px solid rgba(255,255,255,0.1);
+        display: flex;
     }
 
     .profile-frame img {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        height: auto; /* Mengikuti tinggi asli berdasarkan proporsi lebar */
+        object-fit: contain; /* Memastikan foto terlihat utuh sepenuhnya */
     }
 
     .image-bg-shape {
@@ -177,7 +178,7 @@
         }
         .hero-description { margin: 0 auto 35px auto; }
         .hero-actions, .hero-stats { justify-content: center; }
-        .image-stack { width: 280px; height: 350px; }
+        .image-stack { max-width: 280px; }
     }
 
     @keyframes fadeIn {
