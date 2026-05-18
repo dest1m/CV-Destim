@@ -1,21 +1,72 @@
-<div class="portfolio-container" style="padding: 20px; font-family: 'Inter', sans-serif;">
-    <h2 style="font-family: 'Poppins', sans-serif; font-weight: 700; margin-bottom: 20px;">My Latest Project</h2>
+<div class="portfolio-container" style="padding: 40px 20px; font-family: 'Inter', -apple-system, sans-serif; background-color: #fcfcfd;">
+    <div style="text-align: center; margin-bottom: 40px;">
+        <span style="color: #0070f3; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; background: rgba(0, 112, 243, 0.06); padding: 6px 16px; border-radius: 20px;">
+            Featured Project
+        </span>
+        <h2 style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 28px; color: #111217; margin: 12px 0 0 0;">
+            UAS Web Mobile Showcase
+        </h2>
+    </div>
     
-    <div class="project-card" style="border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; max-width: 500px; background: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <img src="screenshot-smartcampus.png" alt="My Smart Campus Mockup" style="width: 100%; border-radius: 8px; margin-bottom: 15px; object-fit: cover;">
-        <h3 style="font-family: 'Poppins', sans-serif; font-weight: 600; margin-bottom: 8px; color: #333;">My Smart Campus Mobile</h3>
-        <p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 12px;">
-            Aplikasi akademik pintar berbasis mobile-first yang mengintegrasikan jadwal perkuliahan, tracking tugas kuliah, berita kampus live, dan didukung fitur offline PWA serta otentikasi multi-role.
-        </p>
-        <div class="tech-stack" style="margin-bottom: 15px;">
-            <span style="background: #f0f0f0; padding: 4px 10px; border-radius: 20px; font-size: 12px; margin-right: 5px; font-weight: 500;">HTML5</span>
-            <span style="background: #f0f0f0; padding: 4px 10px; border-radius: 20px; font-size: 12px; margin-right: 5px; font-weight: 500;">CSS3 (Mobile-First)</span>
-            <span style="background: #f0f0f0; padding: 4px 10px; border-radius: 20px; font-size: 12px; margin-right: 5px; font-weight: 500;">jQuery (SPA)</span>
-            <span style="background: #f0f0f0; padding: 4px 10px; border-radius: 20px; font-size: 12px; margin-right: 5px; font-weight: 500;">PWA & IndexedDB</span>
+    <div class="project-card" style="border: 1px solid #eef0f5; border-radius: 16px; max-width: 480px; margin: 0 auto; background: #ffffff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04); overflow: hidden; transition: all 0.3s ease;">
+        
+        <div style="position: relative; background: #f4f6fa; padding: 15px 15px 0 15px;">
+            <img src="screenshot-smartcampus.png" alt="My Smart Campus Mockup" style="width: 100%; border-radius: 10px 10px 0 0; display: block; object-fit: cover; box-shadow: 0 -5px 15px rgba(0,0,0,0.03);">
         </div>
-        <div class="card-buttons" style="display: flex; gap: 10px;">
-            <a href="https://my-smart-campus-2026.vercel.app/" target="_blank" style="flex: 1; text-align: center; background: #0070f3; color: white; padding: 10px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500;">Live Demo</a>
-            <a href="https://github.com/dest1m/my-smart-campus" target="_blank" style="flex: 1; text-align: center; border: 1px solid #0070f3; color: #0070f3; padding: 10px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500;">GitHub Repo</a>
+
+        <div style="padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; gap: 10px;">
+                <h3 style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 19px; margin: 0; color: #1a1a24; line-height: 1.3;">
+                    My Smart Campus Mobile
+                </h3>
+                <span style="background: #10b981; color: white; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                    PWA App
+                </span>
+            </div>
+
+            <p style="font-size: 14px; color: #525266; line-height: 1.6; margin: 0 0 16px 0;">
+                Aplikasi akademik pintar berbasis <em>mobile-first</em> yang dirancang secara responsif untuk mengintegrasikan kebutuhan data perkuliahan secara dinamis tanpa reload penuh (SPA)[cite: 32, 40, 44].
+            </p>
+
+            <div style="margin-bottom: 20px; border-top: 1px dashed #eaecf0; padding-top: 14px;">
+                <h4 style="font-size: 13px; font-weight: 600; color: #313145; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px;">Fitur Utama Aplikasi:</h4>
+                <ul style="margin: 0; padding-left: 18px; font-size: 13px; color: #525266; line-height: 1.5;">
+                    <li style="margin-bottom: 5px;"><strong>Smart Dashboard & SPA Routing:</strong> Navigasi halaman jadwal, tugas, dan profil interaktif bebas reload[cite: 38, 43, 44, 50].</li>
+                    <li style="margin-bottom: 5px;"><strong>Offline Capability & IndexedDB:</strong> Data tetap aman diakses tanpa internet menggunakan sinkronisasi Service Worker[cite: 111, 110, 125, 132].</li>
+                    <li style="margin-bottom: 5px;"><strong>Multi-Role Authentication System:</strong> Sistem otentikasi login dinamis untuk membedakan hak akses pengguna[cite: 36, 134].</li>
+                </ul>
+            </div>
+
+            <div class="tech-stack" style="margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 6px;">
+                <span style="background: #f4f6fa; color: #4a5568; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; border: 1px solid #e2e8f0;">HTML5 / CSS3</span>
+                <span style="background: #f4f6fa; color: #4a5568; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; border: 1px solid #e2e8f0;">jQuery AJAX</span>
+                <span style="background: #f4f6fa; color: #4a5568; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; border: 1px solid #e2e8f0;">IndexedDB & PWA</span>
+                <span style="background: #f4f6fa; color: #4a5568; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; border: 1px solid #e2e8f0;">Vercel Cloud</span>
+            </div>
+
+            <div class="card-buttons" style="display: flex; gap: 12px;">
+                <a href="https://my-smart-campus-2026.vercel.app/" target="_blank" style="flex: 1; text-align: center; background: #0070f3; color: white; padding: 11px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(0, 112, 243, 0.2); transition: background 0.2s ease;">
+                    Live Demo ↗
+                </a>
+                <a href="https://github.com/dest1m/my-smart-campus" target="_blank" style="flex: 1; text-align: center; border: 1px solid #d0d5dd; color: #344054; padding: 11px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; background: #ffffff; transition: all 0.2s ease;">
+                    GitHub Repo
+                </a>
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+    .project-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 38px rgba(0, 0, 0, 0.08) !important;
+        border-color: #dbeafe !important;
+    }
+    .card-buttons a:first-child:hover {
+        background: #0059c6 !important;
+    }
+    .card-buttons a:last-child:hover {
+        background: #f9fafb !important;
+        border-color: #b3b8c2 !important;
+    }
+</style>
