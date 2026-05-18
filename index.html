@@ -17,77 +17,84 @@
 
     <style>
         /* ========================================================
-           Kustomisasi CSS Menu Dropdown Mobile Ukuran Sedang & Ideal
+           Kustomisasi CSS Menu Dropdown Gawai: Posisi di Tengah Layar
            ======================================================== */
         @media (max-width: 768px) {
-            /* Menghilangkan navigasi horizontal bawaan desktop */
             .nav-links {
-                display: none; /* Tersembunyi sebelum tombol diklik */
-                position: absolute;
-                top: 65px; /* Jarak pas di bawah navbar */
-                right: 20px; /* Jarak manis dari sudut kanan layar */
-                width: 280px; /* UKURAN IDEAL: Lebih lebar dan tidak menutupi seluruh layar */
-                background: #ffffff;
-                border-radius: 18px; /* Lengkungan sudut yang lebih halus & premium */
-                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12); /* Bayangan melayang yang lebih tegas */
-                border: 1px solid #eaecf0;
-                padding: 12px 0;
+                display: none; 
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.4); 
+                backdrop-filter: blur(4px); 
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                padding: 0;
                 margin: 0;
                 list-style: none;
                 flex-direction: column;
                 gap: 0;
-                z-index: 1000;
-                opacity: 0;
-                transform: translateY(-12px); /* Animasi awal sedikit di atas */
-                transition: opacity 0.25s ease, transform 0.25s ease;
             }
 
-            /* Saat kelas .open ditambahkan oleh pemicu jQuery */
             .nav-links.open {
                 display: flex;
                 opacity: 1;
-                transform: translateY(0); /* Meluncur turun pas ke posisi semula */
             }
 
             .nav-links li {
-                width: 100%;
-                text-align: left; /* Teks rata kiri khas menu gawai modern */
+                width: 85%; 
+                max-width: 320px; 
+                background: #ffffff;
+                text-align: center; 
             }
 
-            /* Area sentuh tombol menu yang lebih lega & nyaman untuk jari */
+            .nav-links li:first-child {
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                padding-top: 10px;
+            }
+            .nav-links li:last-child {
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+                padding-bottom: 10px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); 
+            }
+
             .nav-links li a {
                 font-family: 'Poppins', sans-serif;
-                font-size: 16px; /* Ukuran teks sedikit dinaikkan agar lebih jelas */
+                font-size: 16px; 
                 font-weight: 500;
                 color: #4a5568 !important;
                 display: block;
-                padding: 14px 24px; /* Padding ideal agar mudah ditekan dan tidak berdempetan */
+                padding: 14px 20px; 
                 transition: all 0.2s ease;
                 text-decoration: none;
-                border-radius: 0;
             }
 
-            /* Efek ketika menu disentuh kursor atau berstatus aktif */
             .nav-links li a.active, .nav-links li a:hover {
-                color: #0066cc !important; /* Warna aksen Royal Blue profesional */
-                background: #f4f9ff; /* Highlight latar belakang biru lembut */
+                color: #0066cc !important; 
+                background: #f4f9ff; 
                 font-weight: 600;
             }
 
-            /* Garis pembatas khusus untuk tombol kontak di bagian bawah */
             .nav-links li a.contact-btn {
                 border-top: 1px solid #f0f2f5;
                 color: #0066cc !important;
-                padding-top: 16px;
             }
 
-            /* Pengaturan ukuran tombol hamburger di navbar */
             .hamburger {
                 font-size: 26px;
                 cursor: pointer;
                 color: #1a1a1a;
                 padding: 5px;
                 user-select: none;
+                position: relative;
+                z-index: 2100; 
             }
         }
     </style>
@@ -116,7 +123,7 @@
 
 <script>
 $(document).ready(function(){
-    // 1. Registrasi Service Worker PWA (Syarat Penilaian Level 9)
+    // 1. Registrasi Service Worker PWA
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js')
@@ -125,7 +132,7 @@ $(document).ready(function(){
         });
     }
 
-    // 2. Fungsi Utama Jalur Pemuatan Halaman SPA (Single Page Application)
+    // 2. Fungsi Utama Jalur Pemuatan Halaman SPA
     function loadPage(page){
         $("#content").animate({ opacity: 0 }, 200, function(){
             $.ajax({
@@ -139,7 +146,6 @@ $(document).ready(function(){
         });
     }
 
-    // Membuka halaman "Home" secara otomatis saat awal load
     loadPage("home.html");
 
     // 3. Aksi Klik Tautan Menu Navigasi
@@ -151,19 +157,18 @@ $(document).ready(function(){
         let page = $(this).attr("data-page");
         loadPage(page);
         
-        // Menutup menu dropdown secara otomatis setelah halaman dipilih
         $(".nav-links").removeClass("open");
     });
 
     // 4. Pemicu Tombol Hamburger (Buka / Tutup)
     $(".hamburger").click(function(e){ 
-        e.stopPropagation(); /* Mencegah penutupan instan akibat bentrok klik dokumen */
+        e.stopPropagation(); 
         $(".nav-links").toggleClass("open"); 
     });
 
-    // 5. Fitur Auto-Dismiss (Klik di luar area menu untuk otomatis menutup dropdown)
+    // 5. Fitur Auto-Dismiss (Klik area gelap di luar menu untuk otomatis menutup)
     $(document).click(function(e) {
-        if (!$(e.target).closest('.navbar').length) {
+        if (!$(e.target).closest('.nav-links li').length && !$(e.target).closest('.hamburger').length) {
             $(".nav-links").removeClass("open");
         }
     });
