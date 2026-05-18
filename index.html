@@ -17,78 +17,76 @@
 
     <style>
         /* ========================================================
-           Kustomisasi CSS Pembetulan Hamburger Menu Mobile Overlay 
+           Kustomisasi CSS Menu Dropdown Mobile yang Ringkas & Rapi 
            ======================================================== */
         @media (max-width: 768px) {
-            /* Mengubah wadah menu menjadi Full Screen Overlay yang bersih */
+            /* Menghilangkan navigasi horizontal bawaan desktop */
             .nav-links {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background: rgba(255, 255, 255, 0.98); /* Latar belakang putih premium */
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 20px;
-                z-index: 999;
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease-in-out;
-                padding: 0;
+                display: none; /* Tersembunyi sebelum tombol diklik */
+                position: absolute;
+                top: 60px; /* Jarak pas di bawah batas bar navigasi utama */
+                right: 20px; /* Memberikan space manis dari sudut kanan layar */
+                width: 220px; /* Lebar kotak menu yang ringkas & tidak memblokir layar */
+                background: #ffffff;
+                border-radius: 14px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Efek bayangan melayang premium */
+                border: 1px solid #eef0f5;
+                padding: 10px 0;
                 margin: 0;
+                list-style: none;
+                flex-direction: column;
+                gap: 0;
+                z-index: 1000;
+                opacity: 0;
+                transform: translateY(-10px); /* Efek awal sedikit di atas untuk animasi */
+                transition: opacity 0.25s ease, transform 0.25s ease;
             }
 
-            /* Saat kelas .open ditambahkan oleh jQuery */
+            /* Saat kelas .open ditambahkan oleh pemicu jQuery */
             .nav-links.open {
+                display: flex;
                 opacity: 1;
-                visibility: visible;
+                transform: translateY(0); /* Meluncur turun pas ke posisi semula */
             }
 
             .nav-links li {
                 width: 100%;
-                text-align: center;
+                text-align: left; /* Teks rata kiri rapi khas menu gawai */
             }
 
-            /* Mengubah ukuran teks menu agar besar & profesional di mobile */
+            /* Area sentuh tombol menu yang lega & pas untuk jari di HP */
             .nav-links li a {
                 font-family: 'Poppins', sans-serif;
-                font-size: 20px;
-                font-weight: 600;
+                font-size: 15px;
+                font-weight: 500;
                 color: #4a5568 !important;
-                display: inline-block;
-                padding: 12px 35px;
-                border-radius: 12px;
+                display: block;
+                padding: 12px 20px;
                 transition: all 0.2s ease;
                 text-decoration: none;
+                border-radius: 0;
             }
 
-            /* Style tombol menu ketika aktif / diklik */
-            .nav-links li a.active {
-                color: #ffffff !important;
-                background: #0066cc; /* Royal Blue serasi portofolio */
-                box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+            /* Efek ketika menu disentuh kursor atau berstatus aktif */
+            .nav-links li a.active, .nav-links li a:hover {
+                color: #0066cc !important; /* Warna aksen Royal Blue profesional */
+                background: #f4f9ff; /* Highlight latar belakang biru transparan lembut */
+                font-weight: 600;
             }
 
-            /* Tombol contact-btn disesuaikan agar serasi di dalam list mobile */
+            /* Garis pembatas khusus untuk tombol kontak di bagian bawah */
             .nav-links li a.contact-btn {
-                background: transparent;
-                color: #4a5568 !important;
-                border: 2px solid #0066cc;
-            }
-            .nav-links li a.contact-btn.active {
-                background: #0066cc;
-                color: #ffffff !important;
+                border-top: 1px solid #f0f2f5;
+                color: #0066cc !important;
             }
 
-            /* Memastikan posisi tombol hamburger tetap di atas kelereng menu */
+            /* Pengaturan ukuran tombol hamburger agar proporsional */
             .hamburger {
-                position: relative;
-                z-index: 1000;
-                font-size: 26px;
+                font-size: 24px;
                 cursor: pointer;
                 color: #1a1a1a;
+                padding: 5px;
+                user-select: none;
             }
         }
     </style>
@@ -117,7 +115,7 @@
 
 <script>
 $(document).ready(function(){
-    // Registrasi Service Worker PWA
+    // 1. Registrasi Service Worker PWA (Syarat Penilaian Level 9)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js')
@@ -126,7 +124,7 @@ $(document).ready(function(){
         });
     }
 
-    // Fungsi Load Page SPA
+    // 2. Fungsi Utama Jalur Pemuatan Halaman SPA (Single Page Application)
     function loadPage(page){
         $("#content").animate({ opacity: 0 }, 200, function(){
             $.ajax({
@@ -140,10 +138,10 @@ $(document).ready(function(){
         });
     }
 
-    // Ambil halaman awal
+    // Membuka halaman "Home" secara otomatis saat awal load
     loadPage("home.html");
 
-    // Event handler klik menu
+    // 3. Aksi Klik Tautan Menu Navigasi
     $(document).on("click", ".menu", function(e){
         e.preventDefault();
         $(".nav-links li a").removeClass("active");
@@ -152,26 +150,20 @@ $(document).ready(function(){
         let page = $(this).attr("data-page");
         loadPage(page);
         
-        // PENTING: Menu otomatis menutup setelah link diklik di HP
+        // Menutup menu dropdown secara otomatis setelah halaman dipilih
         $(".nav-links").removeClass("open");
-        
-        // Kembalikan ikon hamburger jadi garis tiga jika kamu menggunakan animasi kustom
-        if($(".nav-links").hasClass("open")) {
-            $(".hamburger").html("&times;"); // tanda silang
-        } else {
-            $(".hamburger").html("&#9776;"); // garis tiga
-        }
     });
 
-    // Pemicu tombol hamburger buka-tutup
-    $(".hamburger").click(function(){ 
+    // 4. Pemicu Tombol Hamburger (Buka / Tutup)
+    $(".hamburger").click(function(e){ 
+        e.stopPropagation(); /* Mencegah penutupan instan akibat bentrok klik dokumen */
         $(".nav-links").toggleClass("open"); 
-        
-        // Mengubah teks ikon hamburger menjadi silang (X) saat terbuka
-        if($(".nav-links").hasClass("open")) {
-            $(this).html("&times;");
-        } else {
-            $(this).html("&#9776;");
+    });
+
+    // 5. Fitur Auto-Dismiss (Klik di luar area menu untuk otomatis menutup dropdown)
+    $(document).click(function(e) {
+        if (!$(e.target).closest('.navbar').length) {
+            $(".nav-links").removeClass("open");
         }
     });
 });
