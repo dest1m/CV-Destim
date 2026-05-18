@@ -17,28 +17,28 @@
 
     <style>
         /* ========================================================
-           Kustomisasi CSS Menu Dropdown Mobile yang Ringkas & Rapi 
+           Kustomisasi CSS Menu Dropdown Mobile Ukuran Sedang & Ideal
            ======================================================== */
         @media (max-width: 768px) {
             /* Menghilangkan navigasi horizontal bawaan desktop */
             .nav-links {
                 display: none; /* Tersembunyi sebelum tombol diklik */
                 position: absolute;
-                top: 60px; /* Jarak pas di bawah batas bar navigasi utama */
-                right: 20px; /* Memberikan space manis dari sudut kanan layar */
-                width: 220px; /* Lebar kotak menu yang ringkas & tidak memblokir layar */
+                top: 65px; /* Jarak pas di bawah navbar */
+                right: 20px; /* Jarak manis dari sudut kanan layar */
+                width: 280px; /* UKURAN IDEAL: Lebih lebar dan tidak menutupi seluruh layar */
                 background: #ffffff;
-                border-radius: 14px;
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Efek bayangan melayang premium */
-                border: 1px solid #eef0f5;
-                padding: 10px 0;
+                border-radius: 18px; /* Lengkungan sudut yang lebih halus & premium */
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12); /* Bayangan melayang yang lebih tegas */
+                border: 1px solid #eaecf0;
+                padding: 12px 0;
                 margin: 0;
                 list-style: none;
                 flex-direction: column;
                 gap: 0;
                 z-index: 1000;
                 opacity: 0;
-                transform: translateY(-10px); /* Efek awal sedikit di atas untuk animasi */
+                transform: translateY(-12px); /* Animasi awal sedikit di atas */
                 transition: opacity 0.25s ease, transform 0.25s ease;
             }
 
@@ -51,17 +51,17 @@
 
             .nav-links li {
                 width: 100%;
-                text-align: left; /* Teks rata kiri rapi khas menu gawai */
+                text-align: left; /* Teks rata kiri khas menu gawai modern */
             }
 
-            /* Area sentuh tombol menu yang lega & pas untuk jari di HP */
+            /* Area sentuh tombol menu yang lebih lega & nyaman untuk jari */
             .nav-links li a {
                 font-family: 'Poppins', sans-serif;
-                font-size: 15px;
+                font-size: 16px; /* Ukuran teks sedikit dinaikkan agar lebih jelas */
                 font-weight: 500;
                 color: #4a5568 !important;
                 display: block;
-                padding: 12px 20px;
+                padding: 14px 24px; /* Padding ideal agar mudah ditekan dan tidak berdempetan */
                 transition: all 0.2s ease;
                 text-decoration: none;
                 border-radius: 0;
@@ -70,7 +70,7 @@
             /* Efek ketika menu disentuh kursor atau berstatus aktif */
             .nav-links li a.active, .nav-links li a:hover {
                 color: #0066cc !important; /* Warna aksen Royal Blue profesional */
-                background: #f4f9ff; /* Highlight latar belakang biru transparan lembut */
+                background: #f4f9ff; /* Highlight latar belakang biru lembut */
                 font-weight: 600;
             }
 
@@ -78,11 +78,12 @@
             .nav-links li a.contact-btn {
                 border-top: 1px solid #f0f2f5;
                 color: #0066cc !important;
+                padding-top: 16px;
             }
 
-            /* Pengaturan ukuran tombol hamburger agar proporsional */
+            /* Pengaturan ukuran tombol hamburger di navbar */
             .hamburger {
-                font-size: 24px;
+                font-size: 26px;
                 cursor: pointer;
                 color: #1a1a1a;
                 padding: 5px;
