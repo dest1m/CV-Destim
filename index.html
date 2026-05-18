@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desti | Portfolio SPA</title>
     
-    <!-- PWA Settings -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#0066cc">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="icon-192.png">
@@ -15,6 +14,84 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        /* ========================================================
+           Kustomisasi CSS Pembetulan Hamburger Menu Mobile Overlay 
+           ======================================================== */
+        @media (max-width: 768px) {
+            /* Mengubah wadah menu menjadi Full Screen Overlay yang bersih */
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98); /* Latar belakang putih premium */
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease-in-out;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* Saat kelas .open ditambahkan oleh jQuery */
+            .nav-links.open {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Mengubah ukuran teks menu agar besar & profesional di mobile */
+            .nav-links li a {
+                font-family: 'Poppins', sans-serif;
+                font-size: 20px;
+                font-weight: 600;
+                color: #4a5568 !important;
+                display: inline-block;
+                padding: 12px 35px;
+                border-radius: 12px;
+                transition: all 0.2s ease;
+                text-decoration: none;
+            }
+
+            /* Style tombol menu ketika aktif / diklik */
+            .nav-links li a.active {
+                color: #ffffff !important;
+                background: #0066cc; /* Royal Blue serasi portofolio */
+                box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+            }
+
+            /* Tombol contact-btn disesuaikan agar serasi di dalam list mobile */
+            .nav-links li a.contact-btn {
+                background: transparent;
+                color: #4a5568 !important;
+                border: 2px solid #0066cc;
+            }
+            .nav-links li a.contact-btn.active {
+                background: #0066cc;
+                color: #ffffff !important;
+            }
+
+            /* Memastikan posisi tombol hamburger tetap di atas kelereng menu */
+            .hamburger {
+                position: relative;
+                z-index: 1000;
+                font-size: 26px;
+                cursor: pointer;
+                color: #1a1a1a;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -40,7 +117,7 @@
 
 <script>
 $(document).ready(function(){
-    // Registrasi Service Worker
+    // Registrasi Service Worker PWA
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js')
@@ -63,18 +140,40 @@ $(document).ready(function(){
         });
     }
 
+    // Ambil halaman awal
     loadPage("home.html");
 
+    // Event handler klik menu
     $(document).on("click", ".menu", function(e){
         e.preventDefault();
         $(".nav-links li a").removeClass("active");
         $(this).addClass("active");
+        
         let page = $(this).attr("data-page");
         loadPage(page);
+        
+        // PENTING: Menu otomatis menutup setelah link diklik di HP
         $(".nav-links").removeClass("open");
+        
+        // Kembalikan ikon hamburger jadi garis tiga jika kamu menggunakan animasi kustom
+        if($(".nav-links").hasClass("open")) {
+            $(".hamburger").html("&times;"); // tanda silang
+        } else {
+            $(".hamburger").html("&#9776;"); // garis tiga
+        }
     });
 
-    $(".hamburger").click(function(){ $(".nav-links").toggleClass("open"); });
+    // Pemicu tombol hamburger buka-tutup
+    $(".hamburger").click(function(){ 
+        $(".nav-links").toggleClass("open"); 
+        
+        // Mengubah teks ikon hamburger menjadi silang (X) saat terbuka
+        if($(".nav-links").hasClass("open")) {
+            $(this).html("&times;");
+        } else {
+            $(this).html("&#9776;");
+        }
+    });
 });
 </script>
 </body>
